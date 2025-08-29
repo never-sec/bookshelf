@@ -1,0 +1,27 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Создать цитату{% endblock %}
+
+{% block body %}
+    <section>
+      <div class="form-card">
+        <h2>Добавить новую цитату</h2>
+
+        <form method="post" action="{% url 'create' %}">
+          {% csrf_token %}
+          <label for="quote">Цитата:</label>
+          <textarea id="quote" name="quote" rows="4" placeholder="Введите цитату..." required></textarea>
+
+          <label for="author">Автор:</label>
+          <input type="text" id="author" name="author" placeholder="Имя автора" required>
+
+          <label for="book">Название книги / Фильма:</label>
+          <input type="text" id="book" name="book" placeholder="Источник" required>
+          {% if error %}
+            <p style="color:red; font-weight:bold;">{{ error }}</p>
+          {% endif %}
+          <button type="submit" class="submit-btn"><i class="fa-solid fa-plus"></i> Добавить</button>
+        </form>
+      </div>
+    </section>
+{% endblock %}

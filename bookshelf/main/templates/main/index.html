@@ -1,0 +1,99 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block body %}
+<section>
+  <!-- Блок цитаты -->
+  <div class="quote-card">
+    <p id="quote-text" class="quote-text">"{{ quote.text }}"</p>
+    <p id="quote-author" class="quote-author">— {{ quote.author }}, {{ quote.book }}</p>
+    <div class="quote-buttons">
+      <button id="like-btn" class="like-btn" onclick="toggleLike({{ quote.id }})">
+        <i id="like-icon" class="{% if quote.id in request.session.liked_quotes %}fa-solid{% else %}fa-regular{% endif %} fa-heart"></i>️
+        Нравится (<span id="like-count">{{ quote.likes }}</span>)
+      </button>
+      <button id="new-quote-btn" class="like-btn" onclick="loadQuote({{ quote.id }})"><i class="fa-solid fa-arrows-rotate"></i> Другая цитата</button>
+      <a href="{% url 'create' %}" class="like-btn"><i class="fa-solid fa-plus"></i> Добавить цитату</a>
+
+    </div>
+  </div>
+</section>
+
+<script>
+let likedQuotes = {% if request.session.liked_quotes %}{{ request.session.liked_quotes|safe }}{% else %}[]{% endif %};
+
+window.loadQuote = function(currentId) {
+    fetch("{% url 'random_quote' %}?current_id=" + currentId)
+        .then(response => response.json())
+        .then(data => {
+            if (!data.id) return;
+            document.getElementById("quote-text").innerText = `"${data.text}"`;
+            document.getElementById("quote-author").innerText = `— ${data.author}, ${data.book}`;
+            document.getElementById("like-count").textContent = data.likes;
+
+            const likeBtn = document.getElementById("like-btn");
+            const newQuoteBtn = document.getElementById("new-quote-btn");
+            const likeIcon = document.getElementById("like-icon");
+
+            likeBtn.setAttribute("onclick", `toggleLike(${data.id})`);
+            newQuoteBtn.setAttribute("onclick", `loadQuote(${data.id})`);
+
+            // Меняем иконку в зависимости от лайка
+            if (likedQuotes.includes(data.id)) {
+                likeIcon.classList.remove('fa-regular');
+                likeIcon.classList.add('fa-solid');
+            } else {
+                likeIcon.classList.remove('fa-solid');
+                likeIcon.classList.add('fa-regular');
+            }
+        });
+}
+
+window.toggleLike = function(id) {
+    const likeIcon = document.getElementById("like-icon");
+    const likeCountElem = document.getElementById("like-count");
+
+    let action = likedQuotes.includes(id) ? 'unlike' : 'like';
+
+    fetch(`/like/${id}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ action: action })
+    })
+    .then(response => response.json())
+    .then(data => {
+        likeCountElem.textContent = data.likes;
+
+        if (action === 'like') {
+            likedQuotes.push(id);
+            likeIcon.classList.remove('fa-regular');
+            likeIcon.classList.add('fa-solid');
+        } else {
+            likedQuotes = likedQuotes.filter(qid => qid !== id);
+            likeIcon.classList.remove('fa-solid');
+            likeIcon.classList.add('fa-regular');
+        }
+    });
+}
+
+// Функция для получения CSRF токена Django
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.startsWith(name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+{% endblock %}

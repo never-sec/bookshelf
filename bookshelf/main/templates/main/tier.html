@@ -1,0 +1,70 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Рейтинг{% endblock %}
+
+{% block body %}
+<section>
+  <h1 style="margin-bottom:5px;"><i class="fa-solid fa-chart-simple"></i> Рейтинг</h1>
+
+  <!-- Кнопки переключения -->
+  <div style="margin-bottom:20px; display:flex; gap:10px;">
+    <button onclick="showTab('quotes')" class="like-btn">Топ цитат</button>
+    <button onclick="showTab('books')" class="like-btn">Топ книг</button>
+    <button onclick="showTab('authors')" class="like-btn">Топ авторов</button>
+  </div>
+
+  <!-- Топ цитат -->
+  <div id="quotes" class="tab">
+    <h3 style="margin-bottom:20px;"><i class="fa-solid fa-quote-right"></i> Топ-10 цитат по лайкам</h3>
+    {% if quotes %}
+      <div class="tier-list">
+        {% for quote in quotes %}
+          <div class="quote-card">
+            <h3>#{{ forloop.counter }}</h3>
+            <p class="quote-text">"{{ quote.text }}"</p>
+            <p class="quote-author">— {{ quote.author }}, {{ quote.book }}</p>
+            <p><strong><i class="fa-solid fa-heart"></i>️ {{ quote.likes }}</strong> лайков</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>Нет цитат.</p>
+    {% endif %}
+  </div>
+
+  <!-- Топ книг -->
+  <div id="books" class="tab" style="display:none;">
+    <h3 style="margin-bottom:20px;"><i class="fa-solid fa-book"></i> Топ-10 книг по лайкам</h3>
+    <div class="tier-list">
+      {% for book in books %}
+        <div class="quote-card">
+          <h3>#{{ forloop.counter }}</h3>
+          <p class="quote-text">{{ book.book }}</p>
+          <p class="quote-author"><i class="fa-solid fa-heart"></i>️ {{ book.total_likes }} лайков</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Топ авторов -->
+  <div id="authors" class="tab" style="display:none;">
+    <h3 style="margin-bottom:20px;"><i class="fa-solid fa-pen-nib"></i>️ Топ-10 авторов по лайкам</h3>
+    <div class="tier-list">
+      {% for author in authors %}
+        <div class="quote-card">
+          <h3>#{{ forloop.counter }}</h3>
+          <p class="quote-text">{{ author.author }}</p>
+          <p class="quote-author"><i class="fa-solid fa-heart"></i>️ {{ author.total_likes }} лайков</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+function showTab(tabId) {
+    document.querySelectorAll('.tab').forEach(div => div.style.display = 'none');
+    document.getElementById(tabId).style.display = 'block';
+}
+</script>
+{% endblock %}

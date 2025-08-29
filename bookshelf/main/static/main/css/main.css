@@ -1,0 +1,198 @@
+:root {
+  --dark-moss-green: #606c38ff;
+  --pakistan-green: #283618ff;
+  --cornsilk: #fefae0ff;
+  --earth-yellow: #dda15eff;
+  --tigers-eye: #bc6c25ff;
+}
+
+@font-face {
+  font-family: 'Arzozh';
+  src: url('/static/fonts/AR_ZOZH.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arzozh, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--cornsilk);
+  color: var(--pakistan-green);
+}
+
+header {
+  background: var(--dark-moss-green);
+  color: var(--cornsilk);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  font-family: Arzozh, sans-serif;
+}
+
+nav a {
+  color: var(--cornsilk);
+  text-decoration: none;
+  margin-left: 1rem;
+  font-weight: bold;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  gap: 30px;
+}
+
+/* --- Цитата --- */
+.quote-card {
+  background: var(--earth-yellow);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  text-align: center;
+  color: var(--pakistan-green);
+  min-width: 800px;
+}
+
+.quote-text {
+  font-size: 1.8rem;
+  font-style: italic;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.quote-author {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: var(--dark-moss-green);
+  margin-bottom: 20px;
+}
+
+.like-btn {
+  padding: 10px 20px;
+  background: var(--tigers-eye);
+  color: var(--cornsilk);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+  text-decoration: none;
+}
+
+.like-btn:hover {
+  background: var(--earth-yellow);
+}
+
+
+footer {
+  background: var(--dark-moss-green);
+  color: var(--cornsilk);
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+.form-card {
+  background: var(--earth-yellow);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  width: 100%;
+  max-width: 600px;
+  color: var(--pakistan-green);
+}
+
+.form-card h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input, textarea {
+  padding: 12px;
+  border: 1px solid var(--tigers-eye);
+  border-radius: 8px;
+  font-size: 1rem;
+  resize: none;
+
+  /* светлый терракотовый фон */
+  background: #f2d6c3;  /* мягкий вариант терракоты */
+  color: var(--pakistan-green);
+}
+
+input:focus, textarea:focus {
+  border-color: var(--tigers-eye);
+  outline: none;
+  background: #f5cbb3; /* чуть ярче при фокусе */
+}
+
+.submit-btn {
+  padding: 12px;
+  background: var(--tigers-eye);
+  color: var(--cornsilk);
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: var(--earth-yellow);
+}
+
+.tier-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.tier-list .quote-card {
+  text-align: left;
+  position: relative;
+}
+
+.tier-list .quote-card h3 {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 1.2rem;
+  color: var(--pakistan-green);
+}
