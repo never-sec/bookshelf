@@ -15,7 +15,7 @@
       </button>
       <button id="new-quote-btn" class="like-btn" onclick="loadQuote({{ quote.id }})"><i class="fa-solid fa-arrows-rotate"></i> Другая цитата</button>
       <a href="{% url 'create' %}" class="like-btn"><i class="fa-solid fa-plus"></i> Добавить цитату</a>
-      <p id="quote-views"><i class="fa-solid fa-eye"></i> Просмотров: <span>{{ quote.views }}</span></p>
+      <p id="quote-views" class="quote-author"><i class="fa-solid fa-eye"></i> Просмотров: <span>{{ quote.views }}</span></p>
     </div>
   </div>
 </section>
