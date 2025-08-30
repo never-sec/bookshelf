@@ -10,6 +10,6 @@ if path not in sys.path:
 from django.core.wsgi import get_wsgi_application
 
 # Укажите Django, где найти файл настроек
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bookshelf.bookshelf.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bookshelf.settings')
 
 application = get_wsgi_application()
