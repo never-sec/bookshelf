@@ -7,6 +7,7 @@ class Quote(models.Model):
     text = models.TextField('text')
     likes = models.PositiveIntegerField('likes')
     weight = models.PositiveIntegerField('weight')
+    views = models.IntegerField(default=0)
 
     class Meta:
         constraints = [

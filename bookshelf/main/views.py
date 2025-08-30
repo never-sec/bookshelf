@@ -10,6 +10,9 @@ import json
 def index(request):
     quotes = Quote.objects.all()
     quote = random.choice(quotes) if quotes else None
+    if quote:
+        quote.views += 1
+        quote.save()
     return render(request, 'main/index.html', {'quote': quote})
 
 def create(request):
@@ -66,6 +69,8 @@ def random_quote(request):
         # Это может случиться, если population пуст
         return JsonResponse({'id': None, 'text': 'Нет цитат для выбора', 'author': '', 'book': ''})
 
+    quote.views += 1
+    quote.save()
 
     return JsonResponse({
         'id': quote.id,

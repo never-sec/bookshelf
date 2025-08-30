@@ -15,7 +15,7 @@
       </button>
       <button id="new-quote-btn" class="like-btn" onclick="loadQuote({{ quote.id }})"><i class="fa-solid fa-arrows-rotate"></i> Другая цитата</button>
       <a href="{% url 'create' %}" class="like-btn"><i class="fa-solid fa-plus"></i> Добавить цитату</a>
-
+      <p id="quote-views">👁️ Просмотров: <span>{{ quote.views }}</span></p>
     </div>
   </div>
 </section>
@@ -31,6 +31,7 @@ window.loadQuote = function(currentId) {
             document.getElementById("quote-text").innerText = `"${data.text}"`;
             document.getElementById("quote-author").innerText = `— ${data.author}, ${data.book}`;
             document.getElementById("like-count").textContent = data.likes;
+            document.getElementById("quote-views").textContent = `👁️ Просмотров: ${data.views}`;
 
             const likeBtn = document.getElementById("like-btn");
             const newQuoteBtn = document.getElementById("new-quote-btn");
