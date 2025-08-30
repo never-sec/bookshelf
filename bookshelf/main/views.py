@@ -77,7 +77,8 @@ def random_quote(request):
         'text': quote.text,
         'author': getattr(quote, "author", ""),
         'book': getattr(quote, "book", ""),
-        'likes': quote.likes
+        'likes': quote.likes,
+        'views': quote.views,
     })
 
 @csrf_exempt
