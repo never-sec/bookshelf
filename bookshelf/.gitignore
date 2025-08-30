@@ -3,5 +3,5 @@ staticfiles/
 # Другие стандартные для Python/Django исключения
 __pycache__/
 *.pyc
-db.sqlite3
+bookshelf/db.sqlite3
 .env
